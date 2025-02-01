@@ -1,0 +1,90 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8086/eureka/
+
+spring:
+
+  application:
+    name: gateway-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/stores_mgmt_db?createDatabaseIfNotExist=true
+    username: root
+    password: chandu@teja
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    #      naming:
+    #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL55Dialect
+
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes[0] :
+        id: user-service
+        uri: lb://user-service
+        predicates[0]: Path=/user-service/**
+        filters[0]: RemoveRequestHeader=Cookie
+
+      routes[1]:
+        id: product-service
+        uri: lb://product-service
+        predicates[0]: Path=/PRODUCT-SERVICE/**
+        filters[0]: RemoveRequestHeader=Cookie
+
+      routes[2]:
+        id: dealer-service
+        uri: lb://order-service
+        predicates[0]: Path=/order-service/**
+        filters[0]: RemoveRequestHeader=Cookie
+
+      routes[3]:
+        id: cart-service
+        uri: lb://cart-service
+        predicates[0]: Path=/cart-service/**
+        filters[0]: RemoveRequestHeader=Cookie
+
+      routes[4]:
+        id: user-service
+        uri: lb://user-service
+        predicates[0]: Path=/user-service/**
+        filters[0]: RemoveRequestHeader=Cookie
+  main:
+    allow-bean-definition-overriding: true
+logging:
+  level:
+    com.com.storesmanagementsystem.gateway: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 10000
+
+
+#spring.cloud.gateway.routes[4].id=security
+#spring.cloud.gateway.routes[4].uri=http://localhost:8085
+#spring.cloud.gateway.routes[4].predicates[0]=Path=/security-service/**
+#spring.cloud.gateway.routes[4].filters[0]=RemoveRequestHeader=Cookie
+
+token.expire: 3600000
+token.secret: chandu
+
+auth.header.name: Authorization
+auth.header.token.prefix: Bearer
+auth.header.token: chandu
+
+
