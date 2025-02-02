@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.storesmanagementsystem.gateway</groupId>
-	<artifactId>gateway-service</artifactId>
+	<artifactId>gateway-service-v1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>gateway-service</name>
+	<name>gateway-service-v1</name>
 	<description>Gateway Microservice For User Transactions</description>
 	<properties>
 		<java.version>11</java.version>
