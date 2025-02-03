@@ -20,7 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 @EnableWebFluxSecurity
 public class WebSecurity {
 
